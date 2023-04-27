@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    container_name: 'dbsql'
+    image: bitnami/postgresql
+    env_file:
+      - ./.env
+    ports:
+      - 54320:5432
+    volumes:
+      - ./pgdata/:/bitname/postgresql
+  python_service:
+    container_name: 'python_container'
+    image: python:3.10
+    volumes:
+    - ./:/usr/application/teste/
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+    command: sh
+    working_dir: /usr/application/teste
+
