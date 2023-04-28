@@ -1,0 +1,19 @@
+   90  docker compose up
+   91  docker login
+   92  docker compose up
+   93  docker compose up
+   94  docker compose up
+   95  docker compose up -d
+   96  docker ps
+   97  clear
+   98  docker compose up python_service
+   99  docker ps
+  100  docker compose up python_service
+  101  docker ps
+  102  docker compose up
+  103  docker ps
+  104  docker compose up -d
+  105  docker exec -it python_container sh
+  106  docker compose up python_service -d
+  107  docker ps
+  108  docker exec -it python_container sh
