@@ -1,31 +1,25 @@
-version: '3'
+version: '2'
 
 services:
-  db:
-    container_name: 'db_psql'
-    image: bitnami/postgresql:latest
-    env_file:
-      - ./.envs/.env
-    ports:
-      - 5432:5432
+  postgresql:
+    image: docker.io/bitnami/postgresql:15
     volumes:
-      - ./pgdata/:/bitnami/postgresql
-  python_service:
-    container_name: 'python_container'
-    build: .
+      - 'postgresql_data:/bitnami/postgresql'
+    environment:
+      - POSTGRESQL_DATABASE=bitnami_airflow
+      - POSTGRESQL_USERNAME=bn_airflow
+      - POSTGRESQL_PASSWORD=bitnami1
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+  redis:
+    image: docker.io/bitnami/redis:7.0
     volumes:
-    - ./:/usr/application/teste/
-    depends_on:
-      - db
-    env_file:
-      - ./.envs/.app.env
-    tty: true
-    stdin_open: true
+      - 'redis_data:/bitnami'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
   airflow-scheduler:
     image: docker.io/bitnami/airflow-scheduler:2
-    env_file:
-      - ./.envs/.airflow.env
-      - ./.envs/.airflow-host.env
     environment:
       - AIRFLOW_DATABASE_NAME=bitnami_airflow
       - AIRFLOW_DATABASE_USERNAME=bn_airflow
@@ -49,4 +43,8 @@ services:
       - AIRFLOW_EXECUTOR=CeleryExecutor
     ports:
       - '8080:8080'
-    
+volumes:
+  postgresql_data:
+    driver: local
+  redis_data:
+    driver: local
