@@ -10,14 +10,14 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-cursor.execute("""
+# cursor.execute("""
 
-  CREATE TABLE users(
-  id serial PRIMARY KEY,
-  username VARCHAR(50) NOT NULL
-  );
+#   CREATE TABLE users(
+#   id serial PRIMARY KEY,
+#   username VARCHAR(50) NOT NULL
+#   );
 
-""")
+# """)
 
 
 # cursor.execute("""
@@ -30,20 +30,20 @@ cursor.execute("""
 
 # """)
 
-# cursor.execute("""
+cursor.execute("""
 
-#  SELECT *
-#  FROM users
+ SELECT *
+ FROM users
   
 
-# """)
+""")
 
-# result = cursor.fetchall();
+result = cursor.fetchall();
 
-# for data in result:
-#     print(data)
+for data in result:
+    print(data)
 
 
-# cursor.close()
-# conn.commit()
+cursor.close()
+conn.commit()
 print('deu certo!')
