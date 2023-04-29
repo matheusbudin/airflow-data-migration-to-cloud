@@ -12,13 +12,11 @@ services:
       - ./pgdata/:/bitnami/postgresql
   python_service:
     container_name: 'python_container'
-    image: python:3.10
+    build: .
     volumes:
     - ./:/usr/application/teste/
     depends_on:
       - db
     tty: true
     stdin_open: true
-    command: sh
-    working_dir: /usr/application/teste
-
+    
