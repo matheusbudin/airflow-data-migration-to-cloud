@@ -1,11 +1,12 @@
+import os
 import psycopg2
 
 conn = psycopg2.connect(
-    database="banco_teste_python",
-    host="db", #IP da maquina, nome do servico no compose
-    user="budin",
-    password="root",
-    port=5432 #PORTA DO CONTAINER
+    database=os.environ.get('DB_NAME'),
+    host=os.environ.get('DB_HOST'), #IP da maquina, nome do servico no compose
+    user=os.environ.get('DB_USER'),
+    password=os.environ.get('DB_PASSWORD'),
+    port=os.environ.get('DB_PORT') #PORTA DO CONTAINER
   )
 
 cursor = conn.cursor()

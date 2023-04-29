@@ -17,6 +17,8 @@ services:
     - ./:/usr/application/teste/
     depends_on:
       - db
+    env_file:
+      - ./.app.env
     tty: true
     stdin_open: true
     

@@ -17,3 +17,6 @@
   106  docker compose up python_service -d
   107  docker ps
   108  docker exec -it python_container sh
+
+  docker compose up python_service -d --build (quando muda o docker file é necessario passar o --build
+  docker logs python_container (ele vai printar o resultado da query, se deu certo)
