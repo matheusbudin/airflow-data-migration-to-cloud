@@ -2,14 +2,14 @@ version: '3'
 
 services:
   db:
-    container_name: 'dbsql'
-    image: bitnami/postgresql
+    container_name: 'db_psql'
+    image: bitnami/postgresql:latest
     env_file:
       - ./.env
     ports:
-      - 54320:5432
+      - 5432:5432
     volumes:
-      - ./pgdata/:/bitname/postgresql
+      - ./pgdata/:/bitnami/postgresql
   python_service:
     container_name: 'python_container'
     image: python:3.10
