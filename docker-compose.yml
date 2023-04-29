@@ -9,7 +9,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./pgdata/:/bitnami/postgresql
+      - ./pgdata:/bitnami/postgresql
   python_service:
     container_name: 'python_container'
     build: .
@@ -26,27 +26,16 @@ services:
     env_file:
       - ./.envs/.airflow.env
       - ./.envs/.airflow-host.env
-    environment:
-      - AIRFLOW_DATABASE_NAME=bitnami_airflow
-      - AIRFLOW_DATABASE_USERNAME=bn_airflow
-      - AIRFLOW_DATABASE_PASSWORD=bitnami1
-      - AIRFLOW_EXECUTOR=CeleryExecutor
-      - AIRFLOW_WEBSERVER_HOST=airflow
   airflow-worker:
     image: docker.io/bitnami/airflow-worker:2
-    environment:
-      - AIRFLOW_DATABASE_NAME=bitnami_airflow
-      - AIRFLOW_DATABASE_USERNAME=bn_airflow
-      - AIRFLOW_DATABASE_PASSWORD=bitnami1
-      - AIRFLOW_EXECUTOR=CeleryExecutor
-      - AIRFLOW_WEBSERVER_HOST=airflow
+    env_file:
+      - ./.envs/.airflow.env
+      - ./.envs/.airflow-host.env
   airflow:
     image: docker.io/bitnami/airflow:2
-    environment:
-      - AIRFLOW_DATABASE_NAME=bitnami_airflow
-      - AIRFLOW_DATABASE_USERNAME=bn_airflow
-      - AIRFLOW_DATABASE_PASSWORD=bitnami1
-      - AIRFLOW_EXECUTOR=CeleryExecutor
+    env_file:
+      - ./.envs/.airflow.env
+      - ./.envs/.airflow-db.env
     ports:
-      - '8080:8080'
+      - 8080:8080
     
